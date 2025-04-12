@@ -97,17 +97,18 @@ int insertSortedLL(LinkedList *ll, int item)
 	Node->item = item;
 	Node->next = NULL;
 	int index = 0;
+	int num = 0;
 
-	if(ll->head == NULL || cur->item < item) {
+	cur = ll->head;
+	prev = NULL;
+	index = 1;
+
+	if(ll->head == NULL || ll->head->item > item) {
 		Node->next = ll->head;
 		ll->head = Node;	
 		ll->size++;
 		return 0;
 	}
-	
-	cur = ll->head;
-	prev = NULL;
-	index = 1;
 
 	while(cur != NULL && cur->item < item) {
 		prev = cur;
@@ -115,8 +116,26 @@ int insertSortedLL(LinkedList *ll, int item)
 		index++;
 	}
 
+	if(cur != NULL && cur->item == item) {
+		free(Node);
+		return -1;
+	}
+
+	if(prev == NULL) {
+		Node->next = ll->head;
+		ll->head = Node;
+	}
+	else if(cur == NULL) {
+		prev->next = Node;
+	}
+	else {
+		prev->next = Node;
+		Node->next = cur;
+	}
+
 	prev = Node;
 	Node->next = cur;
+	ll->size++;
 	return index;
 }
 

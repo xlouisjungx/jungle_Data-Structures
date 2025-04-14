@@ -103,7 +103,29 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+    	ListNode *cur1, *prev1, *cur2, *prev2;
+	
+	cur1 = ll1->head;
+	cur2 = ll2->head;
+	prev1 = prev2 = NULL;
+
+	while(cur1 != NULL && cur2 != NULL) {
+		
+		// 각 리스트의 다음 노드들을 저장
+		prev1 = cur1->next;
+		prev2 = cur2->next;
+
+		// 중간 삽입
+		cur1->next = cur2;
+		cur2->next = prev1;
+
+		// 다음 노드로 이동
+		cur1 = prev1;
+		cur2 = prev2;
+	}
+	
+	// 리스트2 남은노드 갱신
+	ll2->head = cur2;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

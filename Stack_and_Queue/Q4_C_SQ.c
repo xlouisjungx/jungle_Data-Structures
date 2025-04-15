@@ -112,7 +112,12 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	Queue *NewQ;
+	int Val = 0;
+	while(!isEmptyQueue(q)) {
+		Val = dequeue(q);
+		enqueue(NewQ, Val);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
